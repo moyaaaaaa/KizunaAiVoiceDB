@@ -1,0 +1,12 @@
+<h1>
+  <%= @voice.line %>
+</h1>
+
+<%= audio_tag(@voice.voice_file,
+              autoplay: false,
+              controls: true,
+              loop: false ) %>
+
+
+<%= link_to 'Edit', edit_voice_path(@voice) %> |
+<%= link_to 'Back', voices_path %>

@@ -1,0 +1,26 @@
+<%= form_with(model: voice, local: true, html: {multipart: true}) do |f| %>
+  <% if voice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(voice.errors.count, "error") %> prohibited this voice from being saved:</h2>
+
+      <ul>
+      <% voice.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :line %>
+    <%= f.text_field :line %>
+
+    <%= f.label :voice_file %>
+    <%= f.file_field :voice_file %>
+    <%= f.hidden_field :voice_file_cache %>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  </div>
+<% end %>
