@@ -28,11 +28,9 @@ class VoicesController < ApplicationController
 
     respond_to do |format|
       if @voice.save
-        format.html { redirect_to @voice, notice: 'Voice was successfully created.' }
-        format.json { render :show, status: :created, location: @voice }
+        format.html { redirect_to voices_path, notice: 'Voice was successfully created.' }
       else
         format.html { render :new }
-        format.json { render json: @voice.errors, status: :unprocessable_entity }
       end
     end
   end
