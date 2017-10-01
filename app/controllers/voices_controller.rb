@@ -28,7 +28,8 @@ class VoicesController < ApplicationController
 
     respond_to do |format|
       if @voice.save
-        format.html { redirect_to voices_path, notice: 'Voice was successfully created.' }
+        flash[:success] = 'Voice was successfully created.'
+        format.html { redirect_to voices_path }
       else
         format.html { render :new }
       end
@@ -40,11 +41,10 @@ class VoicesController < ApplicationController
   def update
     respond_to do |format|
       if @voice.update(voice_params)
-        format.html { redirect_to @voice, notice: 'Voice was successfully updated.' }
-        format.json { render :show, status: :ok, location: @voice }
+        flash[:success] = 'Voice was successfully updated.'
+        format.html { redirect_to voices_path }
       else
         format.html { render :edit }
-        format.json { render json: @voice.errors, status: :unprocessable_entity }
       end
     end
   end
