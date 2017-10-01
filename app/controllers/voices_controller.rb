@@ -54,6 +54,7 @@ class VoicesController < ApplicationController
   # DELETE /voices/1
   # DELETE /voices/1.json
   def destroy
+    @voice.remove_voice_file!
     @voice.destroy
     respond_to do |format|
       format.html { redirect_to voices_url, notice: 'Voice was successfully destroyed.' }
