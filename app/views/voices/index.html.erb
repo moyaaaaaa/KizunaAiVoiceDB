@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Voices</h1>
 
 
@@ -22,9 +20,7 @@
                           loop: false,
                           id: "audio" + i.to_s) %>
         </td>
-        <td><%= link_to 'Show', voice %></td>
         <td><%= link_to 'Edit', edit_voice_path(voice) %></td>
-        <td><%= link_to 'Destroy', voice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

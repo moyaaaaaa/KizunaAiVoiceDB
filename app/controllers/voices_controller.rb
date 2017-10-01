@@ -28,11 +28,10 @@ class VoicesController < ApplicationController
 
     respond_to do |format|
       if @voice.save
-        format.html { redirect_to @voice, notice: 'Voice was successfully created.' }
-        format.json { render :show, status: :created, location: @voice }
+        flash[:success] = 'Voice was successfully created.'
+        format.html { redirect_to voices_path }
       else
         format.html { render :new }
-        format.json { render json: @voice.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,11 +41,10 @@ class VoicesController < ApplicationController
   def update
     respond_to do |format|
       if @voice.update(voice_params)
-        format.html { redirect_to @voice, notice: 'Voice was successfully updated.' }
-        format.json { render :show, status: :ok, location: @voice }
+        flash[:success] = 'Voice was successfully updated.'
+        format.html { redirect_to voices_path }
       else
         format.html { render :edit }
-        format.json { render json: @voice.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -54,6 +52,7 @@ class VoicesController < ApplicationController
   # DELETE /voices/1
   # DELETE /voices/1.json
   def destroy
+    @voice.remove_voice_file!
     @voice.destroy
     respond_to do |format|
       format.html { redirect_to voices_url, notice: 'Voice was successfully destroyed.' }
