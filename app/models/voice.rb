@@ -5,4 +5,5 @@ class Voice < ApplicationRecord
   validates :voice_file, presence: true, uniqueness: true
   validates :line, presence: true,
             length: { maximum: 255 }
+  validates :url, presence: true
 end
