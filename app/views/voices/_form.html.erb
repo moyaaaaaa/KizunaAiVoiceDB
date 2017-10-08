@@ -1,15 +1,36 @@
-<%= form_with(model: voice, local: true, html: {multipart: true}) do |f| %>
-  <% if voice.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(voice.errors.count, "error") %> prohibited this voice from being saved:</h2>
+<%= stylesheet_link_tag 'voices', media: 'all' %>
 
-      <ul>
-      <% voice.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+
+<%= form_with(model: voice, local: true, html: {multipart: true}) do |f| %>
+    <% if voice.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(voice.errors.count, "error") %> prohibited this voice from being saved:</h2>
+
+        <ul>
+        <% voice.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+  <div class="form-group">
+    <%= f.label :url %>
+    <%= f.text_field :url, class: 'form-control' %>
+  </div>
+
+
+  <div class="scroll">
+    <table class="table table-hover">
+      <tbody id="js-xmlArea">
+        <tr>
+          <th>start</th>
+          <th>during</th>
+          <th>セリフ</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div class="form-group">
     <%= f.label :line %>
@@ -19,6 +40,14 @@
     <%= f.label :voice_file %>
     <%= f.file_field :voice_file, class: 'form-control-file' %>
     <%= f.hidden_field :voice_file_cache %>
+  </div>
+
+  <div class="form-group">
+    <%= f.hidden_field :start %>
+  </div>
+
+  <div class="form-group">
+    <%= f.hidden_field :during %>
   </div>
   <%= f.submit class: 'btn btn-primary' %>
 

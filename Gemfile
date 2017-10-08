@@ -16,6 +16,9 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'carrierwave'
 gem 'rmagick'
+gem 'nokogiri'
+gem 'streamio-ffmpeg'
+gem 'youtube-dl.rb'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

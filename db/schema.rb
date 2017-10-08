@@ -10,13 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170930125716) do
+ActiveRecord::Schema.define(version: 20171008080456) do
 
   create_table "voices", force: :cascade do |t|
     t.string "voice_file"
     t.string "line"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "url"
+    t.float "start"
+    t.float "during"
     t.index ["voice_file"], name: "index_voices_on_voice_file", unique: true
   end
 
