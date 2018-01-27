@@ -17,6 +17,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'carrierwave'
 gem 'rmagick'
 gem 'nokogiri'
+gem 'mysql2'
 gem 'streamio-ffmpeg'
 gem 'youtube-dl.rb'
 

@@ -12,14 +12,14 @@
 
 ActiveRecord::Schema.define(version: 20171008080456) do
 
-  create_table "voices", force: :cascade do |t|
+  create_table "voices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "voice_file"
     t.string "line"
+    t.string "url"
+    t.float "start", limit: 24
+    t.float "during", limit: 24
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "url"
-    t.float "start"
-    t.float "during"
     t.index ["voice_file"], name: "index_voices_on_voice_file", unique: true
   end
 
