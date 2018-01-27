@@ -14,6 +14,9 @@ set :keep_releases, 5
 # rubyのバージョン
 set :rbenv_ruby, '2.3.1'
 
+# rbenvのパス指定
+set :rbenv_path, '$HOME/.rbenv'
+
 # ログレベルの指定
 set :log_level, :debug
 
