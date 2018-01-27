@@ -6,7 +6,6 @@ set :stage, :production
 # server in each group is considered to be the first
 # unless any hosts have the primary property set.
 role :app, %w{13.114.202.175}
-role :db,  %w{kizuna-ai-db.cljodaycfhmg.ap-northeast-1.rds.amazonaws.com}
 
 # Extended Server Syntax
 # ======================
