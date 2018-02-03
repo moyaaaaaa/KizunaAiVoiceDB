@@ -3,7 +3,7 @@ set :application, 'kizuna_ai_voice_db'
 set :repo_url, 'git@github.com:moyaaaaaa/KizunaAiVoiceDB.git'
 
 # デプロイするブランチを指定
-set :branch, 'I11'
+set :branch, 'I12'
 
 # デプロイ先のディレクトリ
 set :deploy_to, '/var/www/KizunaAiVoiceDB'
