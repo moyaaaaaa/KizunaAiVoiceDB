@@ -7,20 +7,22 @@
 default: &default
   adapter: mysql2
   username: rails_app_user
-  password: password
   database: kizuna_ai_db
-  host: localhost
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 development:
   <<: *default
+  host: localhost
+  password: password
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  host: localhost
+  password: password
 
 
 production:
