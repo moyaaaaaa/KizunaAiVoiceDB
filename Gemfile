@@ -17,6 +17,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'carrierwave'
 gem 'rmagick'
 gem 'nokogiri'
+gem 'mysql2'
 gem 'streamio-ffmpeg'
 gem 'youtube-dl.rb'
 
@@ -32,11 +33,13 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rbenv'
 end
 
-group :production do
-  gem 'pg', '0.20.0'
-end
+group :production do;end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
