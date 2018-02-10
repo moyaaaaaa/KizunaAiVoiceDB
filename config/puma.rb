@@ -56,3 +56,5 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 plugin :tmp_restart
 
 bind "unix://tmp/sockets/puma.sock"
+
+worker_timeout 180
