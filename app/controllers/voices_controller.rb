@@ -62,6 +62,8 @@ class VoicesController < ApplicationController
     voice.save!
 
     puts voice.voice_file.url
+    system("rm #{input_filepath}")
+    system("rm #{output_filepath}")
 
 
     flash[:success] = 'Voice was successfully created.'
