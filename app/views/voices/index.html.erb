@@ -21,6 +21,7 @@
                           id: "audio" + i.to_s) %>
         </td>
         <td><%= link_to 'Edit', edit_voice_path(voice) %></td>
+        <td><%= link_to 'delete', voice, method: :delete, class: 'btn btn-danger', confirm: 'Are you OK?' %></td>
       </tr>
     <% end %>
   </tbody>

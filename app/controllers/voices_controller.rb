@@ -59,9 +59,11 @@ class VoicesController < ApplicationController
       voice.voice_file = f
     end
     #VoiceUploader.new.store!(open("#{output_filepath}"))
-    voice.save
+    voice.save!
 
     puts voice.voice_file.url
+    system("rm #{input_filepath}")
+    system("rm #{output_filepath}")
 
 
     flash[:success] = 'Voice was successfully created.'

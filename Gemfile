@@ -20,6 +20,7 @@ gem 'nokogiri'
 gem 'mysql2'
 gem 'streamio-ffmpeg'
 gem 'youtube-dl.rb'
+gem 'fog'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
