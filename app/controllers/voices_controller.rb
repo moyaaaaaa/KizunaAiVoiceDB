@@ -1,4 +1,5 @@
 require 'shellwords'
+require 'open3'
 
 class VoicesController < ApplicationController
   before_action :set_voice, only: [:show, :edit, :update, :destroy]
@@ -42,29 +43,23 @@ class VoicesController < ApplicationController
 
 
   def create
-    # youtube-dl -f m4a "https://www.youtube.com/watch?v=v79HxnWIuNY"
-    #YoutubeDL.download(params[:url], format: 'm4a', output: 'temp.m4a')
-    #YoutubeDL.download "https://www.youtube.com/watch?v=gvdf5n-zI14", output: 'some_file.mp4'
-
-    input_filepath = 'public/uploads/tmp/tmp.m4a'
     output_filepath = 'public/uploads/tmp/out.m4a'
-    puts Shellwords.escape(params[:voice][:url])
-    puts "youtube-dl -o \"#{input_filepath}\" -f m4a #{Shellwords.escape(params[:voice][:url])}"
-    system("youtube-dl -o \"#{input_filepath}\" -f m4a #{Shellwords.escape(params[:voice][:url])}")
-    puts "ffmpeg -y -i #{input_filepath} -ss #{params[:voice][:start]} -t #{params[:voice][:during]} #{output_filepath}"
-    system("ffmpeg -y -i #{input_filepath} -ss #{params[:voice][:start]} -t #{params[:voice][:during]} #{output_filepath}")
+
+    get_url_cmd = "youtube-dl --get-url #{Shellwords.escape(params[:voice][:url])}"
+    puts(get_url_cmd)
+    o, e, s = Open3.capture3(get_url_cmd)
+    sound_url = o.split(/\R/).second
+    puts("ffmpeg -y -ss #{params[:voice][:start]} -t #{params[:voice][:during]} -i '#{sound_url}' #{output_filepath}")
+    Open3.capture3("ffmpeg -y -ss #{params[:voice][:start]} -t #{params[:voice][:during]} -i '#{sound_url}' #{output_filepath}")
 
     voice = Voice.new(voice_params)
     File.open("#{Rails.root}/#{output_filepath}") do |f|
       voice.voice_file = f
     end
-    #VoiceUploader.new.store!(open("#{output_filepath}"))
     voice.save!
 
     puts voice.voice_file.url
-    system("rm #{input_filepath}")
     system("rm #{output_filepath}")
-
 
     flash[:success] = 'Voice was successfully created.'
     redirect_to voices_path
