@@ -1,4 +1,4 @@
-$(window).load(function(){
+$(window).on('load', function(){
     $('input[name="voice[url]"]').change(function(){
         $.post('/timed_text/',
             {
