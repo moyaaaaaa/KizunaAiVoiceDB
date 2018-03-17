@@ -1,7 +1,7 @@
+<% provide(:title, @voice.line)%>
 <h1>
   <%= @voice.line %>
 </h1>
-
 <div class="container mt-5 mb-3">
   <div class="row" id="<%= "voice" + @voice.id.to_s %>">
     <div class="col-12 serif">
@@ -25,10 +25,8 @@
     セリフ上をクリックorタップでも音声が再生されます。
   </small>
 </div>
-
 <%= link_to 'Tweet', 'https://twitter.com/share?ref_src=twsrc%5Etfw', class: 'twitter-share-button', data: { size: 'large', text: @voice.line, url: voice_url(@voice), show: { content: 'false' } } %>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
 <div class="container mb-5">
   <div class="embed-responsive embed-responsive-16by9">
     <%= content_tag :iframe, '', src: @voice.embed_url, allowfullscreen: true, class: 'embed-responsive-item' %>
