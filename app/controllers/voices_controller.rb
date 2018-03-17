@@ -3,6 +3,7 @@ require 'open3'
 
 class VoicesController < ApplicationController
   before_action :set_voice, only: [:show, :edit, :update, :destroy]
+  before_action :allow_youtube_iframe, only: [:show]
 
   # GET /voices
   # GET /voices.json
@@ -98,5 +99,10 @@ class VoicesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def voice_params
       params.require(:voice).permit(:id, :voice_file, :voice_file_cache, :line, :url, :start, :during)
+    end
+
+    def allow_youtube_iframe
+      response.headers['X-Frame-Options'] = 'ALLOW-FROM https://www.youtube.com'
+      response.headers['Content-Security-Policy'] = 'frame-ancestors https://www.youtube.com'
     end
 end
