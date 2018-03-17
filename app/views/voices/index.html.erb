@@ -3,6 +3,7 @@
 
 <%= link_to 'New Voice', new_voice_path, class: 'btn btn-primary pull-right' %>
 
+<%= paginate @voices %>
 <table class="table table-hover">
   <thead>
     <tr>
@@ -26,6 +27,7 @@
     <% end %>
   </tbody>
 </table>
+<%= paginate @voices %>
 
 <%= javascript_include_tag 'voice/index' %>
 
