@@ -2,11 +2,29 @@
   <%= @voice.line %>
 </h1>
 
-<%= audio_tag(@voice.voice_file,
-              autoplay: false,
-              controls: true,
-              loop: false ) %>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
 
+  <tbody>
+    <tr id="<%= "voice" + @voice.id.to_s %>">
+      <td><%= @voice.line %></td>
+      <td class="audio"><%= audio_tag(@voice.voice_file,
+                                      autoplay: false,
+                                      controls: true,
+                                      loop: false,
+                                      id: "audio" + @voice.id.to_s) %>
+      </td>
+      <td><%= link_to 'Edit', edit_voice_path(@voice) %></td>
+      <td><%= link_to 'delete', @voice, method: :delete, class: 'btn btn-danger', confirm: 'Are you OK?' %></td>
+    </tr>
+  </tbody>
+</table>
 
-<%= link_to 'Edit', edit_voice_path(@voice) %> |
-<%= link_to 'Back', voices_path %>
+<%= link_to 'Tweet', 'https://twitter.com/share?ref_src=twsrc%5Etfw', class: 'twitter-share-button', data: { size: 'large', text: @voice.line, url: voice_url(@voice), show: { content: 'false' } } %>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<%= javascript_include_tag 'voice/show' %>
