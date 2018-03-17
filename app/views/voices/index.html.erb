@@ -1,28 +1,23 @@
 <h1>Voices</h1>
 
 
-<%= link_to 'New Voice', new_voice_path, class: 'btn btn-primary pull-right' %>
+<div class="clearfix mb-3">
+  <%= link_to 'New Voice', new_voice_path, class: 'btn btn-primary float-right' %>
+</div>
 
 <%= paginate @voices %>
+<small class="text-muted">
+  セリフ上をクリックorタップでも音声が再生されます。
+</small>
 <table class="table table-hover">
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
   <tbody>
     <% @voices.each_with_index do |voice, i| %>
       <tr id="<%= "voice" + i.to_s %>">
-        <td><%= voice.line %></td>
-        <td class="audio"><%= audio_tag(voice.voice_file,
-                          autoplay: false,
-                          controls: true,
-                          loop: false,
-                          id: "audio" + i.to_s) %>
+        <td class="serif"><%= voice.line %></td>
+        <td class="audio d-none d-md-block">
+          <%= audio_tag(voice.voice_file, autoplay: false, controls: true, loop: false, id: "audio" + i.to_s) %>
         </td>
-        <td><%= link_to 'Edit', edit_voice_path(voice) %></td>
-        <td><%= link_to 'delete', voice, method: :delete, class: 'btn btn-danger', confirm: 'Are you OK?' %></td>
+        <td><%= link_to 'Show', voice_path(voice), class: 'btn btn-primary' %></td>
       </tr>
     <% end %>
   </tbody>

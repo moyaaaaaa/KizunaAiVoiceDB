@@ -2,11 +2,38 @@
   <%= @voice.line %>
 </h1>
 
-<%= audio_tag(@voice.voice_file,
-              autoplay: false,
-              controls: true,
-              loop: false ) %>
+<div class="container mt-5 mb-3">
+  <div class="row" id="<%= "voice" + @voice.id.to_s %>">
+    <div class="col-12 serif">
+      <%= @voice.line %>
+    </div>
+    <div class="col-12">
+      <%= audio_tag(@voice.voice_file,
+                    autoplay: false,
+                    controls: true,
+                    loop: false,
+                    id: "audio" + @voice.id.to_s) %>
+    </div>
+    <div class="col-2 col-md-1">
+      <%= link_to 'Edit', edit_voice_path(@voice), class: 'btn btn-primary' %>
+    </div>
+    <div class="col-2 col-md-1">
+      <%= link_to 'delete', @voice, method: :delete, class: 'btn btn-danger', confirm: 'Are you OK?' %>
+    </div>
+  </div>
+  <small class="text-muted">
+    セリフ上をクリックorタップでも音声が再生されます。
+  </small>
+</div>
+
+<%= link_to 'Tweet', 'https://twitter.com/share?ref_src=twsrc%5Etfw', class: 'twitter-share-button', data: { size: 'large', text: @voice.line, url: voice_url(@voice), show: { content: 'false' } } %>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<div class="container mb-5">
+  <div class="embed-responsive embed-responsive-16by9">
+    <%= content_tag :iframe, '', src: @voice.embed_url, allowfullscreen: true, class: 'embed-responsive-item' %>
+  </div>
+</div>
 
 
-<%= link_to 'Edit', edit_voice_path(@voice) %> |
-<%= link_to 'Back', voices_path %>
+<%= javascript_include_tag 'voice/show' %>

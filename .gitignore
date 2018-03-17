@@ -24,4 +24,5 @@
 
 public/uploads/
 
-vendor/bundle
+vendor/bundle/
+vendor/path/
