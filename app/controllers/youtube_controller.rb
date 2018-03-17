@@ -3,6 +3,7 @@ require 'nokogiri'
 require 'open-uri'
 
 class YoutubeController < ApplicationController
+  protect_from_forgery except: %i[:timed_text]
 
   def timed_text
     puts params[:url]
