@@ -21,18 +21,34 @@ $(window).on('load', function(){
     });
 
     var observer = new MutationObserver(function(){
-        $('[id^=line]').on('click', function(){
-            $('#js-xmlArea').find('tr').removeClass('info');
-            $(this).toggleClass('info');
-            $('input[name="voice[line]"]').val(
-                $(this).find('.line').text()
-            );
-            $('input[name="voice[start]"]').val(
-                $(this).find('.start').text()
-            );
-            $('input[name="voice[during]"]').val(
-                $(this).find('.during').text()
-            );
+        $('[id^=line]').on('click', function(event){
+            // shiftクリック or metaクリックで結合
+            if (event.shiftKey || event.metaKey) {
+                $(this).toggleClass('info');
+                if (!$('#js-line').val()) {
+                    return;
+                }
+                $('#js-line').val(
+                    $('#js-line').val() + ' ' +
+                    $(this).find('.line').text()
+                );
+                $('input[name="voice[during]"]').val(
+                    parseFloat($('input[name="voice[during]"]').val()) +
+                    parseFloat($(this).find('.during').text())
+                );
+            } else {
+                $('#js-xmlArea').find('tr').removeClass('info');
+                $(this).toggleClass('info');
+                $('#js-line').val(
+                    $(this).find('.line').text()
+                );
+                $('input[name="voice[start]"]').val(
+                    $(this).find('.start').text()
+                );
+                $('input[name="voice[during]"]').val(
+                    $(this).find('.during').text()
+                );
+            }
         });
     });
 

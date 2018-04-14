@@ -33,32 +33,36 @@ class VoicesController < ApplicationController
     end
   end
 
-  # GET /voices/1/edit
-  def edit
-  end
-
   # POST /voices
   # POST /voices.json
   def create
-    voice = Voice.new(voice_params)
+    @voice = Voice.new(voice_params)
     output_filepath = download_voice(params[:voice][:url])
     File.open("#{Rails.root}/#{output_filepath}") do |f|
-      voice.voice_file = f
+      @voice.voice_file = f
     end
-    voice.save!
+    return render :edit if @voice.invalid?
+    @voice.save!
 
-    puts voice.voice_file.url
     system("rm #{output_filepath}")
 
     flash[:success] = 'Voice was successfully created.'
     redirect_to voices_path
   end
 
+  # GET /voices/1/edit
+  def edit; end
+
   # PATCH/PUT /voices/1
   # PATCH/PUT /voices/1.json
   def update
+    @voice.assign_attributes(voice_params)
+    output_filepath = download_voice(params[:voice][:url])
+    File.open("#{Rails.root}/#{output_filepath}") do |f|
+      @voice.voice_file = f
+    end
     respond_to do |format|
-      if @voice.update(voice_params)
+      if @voice.save
         flash[:success] = 'Voice was successfully updated.'
         format.html { redirect_to voices_path }
       else

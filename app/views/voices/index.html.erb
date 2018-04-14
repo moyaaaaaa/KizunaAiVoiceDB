@@ -8,7 +8,7 @@
       </div>
       <div class="form-group" %>
         <%= f.label :uploader_name_eq, '投稿者', class: 'col-3' %>
-        <%= f.select :uploader_name_eq, Voice.all.pluck(:uploader_name).uniq, {}, { class: 'form-control col-12' } %>
+        <%= f.select :uploader_name_eq, Voice.all.pluck(:uploader_name).uniq, { include_blank: true }, { class: 'form-control col-12' } %>
       </div>
       <div class='row d-flex flex-row-reverse w-100'>
         <%= f.submit class: 'btn btn-primary' %>
