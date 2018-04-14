@@ -18,6 +18,6 @@ module KizunaAiVoiceDB
       g.test_framework false
     end
 
-
+    config.autoload_paths += %W(#{config.root}/lib)
   end
 end
