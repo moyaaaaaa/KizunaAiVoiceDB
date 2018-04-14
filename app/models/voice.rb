@@ -25,4 +25,12 @@ class Voice < ApplicationRecord
     return if o.blank?
     self.uploader_name = o.chomp
   end
+
+  def tweet_text
+    <<-"RUBY"
+#{self.line}
+##{self.uploader_name.gsub(' ', '')}
+
+    RUBY
+  end
 end
