@@ -36,18 +36,15 @@
     <%= f.label :line %>
     <%= f.text_field :line, class: 'form-control' %>
   </div>
+
   <div class="form-group">
-    <%= f.label :voice_file %>
-    <%= f.file_field :voice_file, class: 'form-control-file' %>
-    <%= f.hidden_field :voice_file_cache %>
+    <%= f.label :start %>
+    <%= f.text_field :start, class: 'form-control' %>
   </div>
 
   <div class="form-group">
-    <%= f.hidden_field :start %>
-  </div>
-
-  <div class="form-group">
-    <%= f.hidden_field :during %>
+    <%= f.label :during %>
+    <%= f.text_field :during, class: 'form-control' %>
   </div>
   <%= f.submit class: 'btn btn-primary' %>
 
