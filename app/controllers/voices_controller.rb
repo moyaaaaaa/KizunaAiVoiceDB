@@ -2,14 +2,13 @@ require 'shellwords'
 require 'open3'
 
 class VoicesController < ApplicationController
+  before_action :fetch_voices, only: :index
   before_action :set_voice, only: [:show, :edit, :update, :destroy]
   before_action :allow_youtube_iframe, only: [:show]
 
   # GET /voices
   # GET /voices.json
-  def index
-    @voices = Voice.order('created_at DESC').page(params[:page])
-  end
+  def index; end
 
   # GET /voices/1
   # GET /voices/1.json
@@ -91,6 +90,15 @@ class VoicesController < ApplicationController
   end
 
   private
+
+    def fetch_voices()
+      @q = Voice.ransack(params[:q])
+      @voices = @q.result
+                  .page(params[:page])
+                  .per(30)
+                  .order(created_at: :desc)
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_voice
       @voice = Voice.find(params[:id])
