@@ -25,7 +25,7 @@
     セリフ上をクリックorタップでも音声が再生されます。
   </small>
 </div>
-<%= link_to 'Tweet', 'https://twitter.com/share?ref_src=twsrc%5Etfw', class: 'twitter-share-button', data: { size: 'large', text: @voice.line, url: voice_url(@voice), show: { content: 'false' } } %>
+<%= link_to 'Tweet', 'https://twitter.com/share?ref_src=twsrc%5Etfw', class: 'twitter-share-button', data: { size: 'large', text: @voice.tweet_text, url: voice_url(@voice), show: { content: 'false' } } %>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <div class="container mb-5">
   <div class="embed-responsive embed-responsive-16by9">

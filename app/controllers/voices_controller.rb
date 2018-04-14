@@ -39,20 +39,9 @@ class VoicesController < ApplicationController
 
   # POST /voices
   # POST /voices.json
-
-
-
   def create
-    output_filepath = 'public/uploads/tmp/out.m4a'
-
-    get_url_cmd = "youtube-dl --get-url #{Shellwords.escape(params[:voice][:url])}"
-    puts(get_url_cmd)
-    o, e, s = Open3.capture3(get_url_cmd)
-    sound_url = o.split(/\R/).second
-    puts("ffmpeg -y -ss #{params[:voice][:start]} -t #{params[:voice][:during]} -i '#{sound_url}' #{output_filepath}")
-    Open3.capture3("ffmpeg -y -ss #{params[:voice][:start]} -t #{params[:voice][:during]} -i '#{sound_url}' #{output_filepath}")
-
     voice = Voice.new(voice_params)
+    output_filepath = download_voice(params[:voice][:url])
     File.open("#{Rails.root}/#{output_filepath}") do |f|
       voice.voice_file = f
     end
@@ -91,12 +80,23 @@ class VoicesController < ApplicationController
 
   private
 
-    def fetch_voices()
+    def fetch_voices
       @q = Voice.ransack(params[:q])
       @voices = @q.result
                   .page(params[:page])
                   .per(30)
                   .order(created_at: :desc)
+    end
+
+    def download_voice(url)
+      output_filepath = 'public/out.m4a'
+      get_url_cmd = "youtube-dl --get-url #{Shellwords.escape(url)}"
+      logger.info get_url_cmd
+      o, e, s = Open3.capture3(get_url_cmd)
+      sound_url = o.split(/\R/).second
+      logger.info "ffmpeg -y -ss #{params[:voice][:start]} -t #{params[:voice][:during]} -i '#{sound_url}' #{output_filepath}"
+      Open3.capture3 "ffmpeg -y -ss #{params[:voice][:start]} -t #{params[:voice][:during]} -i '#{sound_url}' #{output_filepath}"
+      output_filepath
     end
 
     # Use callbacks to share common setup or constraints between actions.
