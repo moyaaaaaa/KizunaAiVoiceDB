@@ -34,8 +34,7 @@ class VoicesController < ApplicationController
   end
 
   # GET /voices/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /voices
   # POST /voices.json
@@ -57,8 +56,13 @@ class VoicesController < ApplicationController
   # PATCH/PUT /voices/1
   # PATCH/PUT /voices/1.json
   def update
+    @voice.assign_attributes(voice_params)
+    output_filepath = download_voice(params[:voice][:url])
+    File.open("#{Rails.root}/#{output_filepath}") do |f|
+      @voice.voice_file = f
+    end
     respond_to do |format|
-      if @voice.update(voice_params)
+      if @voice.save
         flash[:success] = 'Voice was successfully updated.'
         format.html { redirect_to voices_path }
       else
