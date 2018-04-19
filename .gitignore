@@ -26,3 +26,6 @@ public/out.m4a
 
 vendor/bundle/
 vendor/path/
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml
