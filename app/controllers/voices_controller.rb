@@ -41,6 +41,9 @@ class VoicesController < ApplicationController
     File.open("#{Rails.root}/#{output_filepath}") do |f|
       @voice.voice_file = f
     end
+    o, e, s = Open3.capture3("wget -nv --delete-after '#{@voice.url}'")
+    e.chomp =~ /.*URL:(.*) \[.*\] -> /
+    @voice.url = Regexp.last_match(1)
     return render :edit if @voice.invalid?
     @voice.save!
 
@@ -61,6 +64,9 @@ class VoicesController < ApplicationController
     File.open("#{Rails.root}/#{output_filepath}") do |f|
       @voice.voice_file = f
     end
+    o, e, s = Open3.capture3("wget -nv --delete-after '#{@voice.url}'")
+    e.chomp =~ /.*URL:(.*) \[.*\] -> /
+    @voice.url = Regexp.last_match(1)
     respond_to do |format|
       if @voice.save
         flash[:success] = 'Voice was successfully updated.'
